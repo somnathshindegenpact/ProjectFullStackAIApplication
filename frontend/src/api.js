@@ -19,7 +19,7 @@ function getApiBase() {
     }
   }
 
-  return process.env.REACT_APP_API_URL || 'https://task-manager-api-346f.onrender.com'
+  return 'https://task-manager-api-346f.onrender.com'
 }
 
 // Keep the deployment target explicit for GitHub Pages builds.
@@ -72,7 +72,8 @@ async function request(path, options = {}) {
     return {
       msg: 'Unable to reach the API server. Check the backend deployment and CORS settings.',
       error: error.message,
-      _url: targetUrl
+      _url: targetUrl,
+      _networkError: true
     }
   }
 }

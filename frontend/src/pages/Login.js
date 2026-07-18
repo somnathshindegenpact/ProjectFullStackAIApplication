@@ -80,7 +80,9 @@ export default function Login(){
       navigate('/')
     } else {
       setMessageType('error')
-      const detail = res._url ? `${res.msg || 'Login failed. Please try again.'} (${res._url})` : (res.msg || 'Login failed. Please try again.')
+      const detail = res._url
+        ? `${res.msg || 'Login failed. Please try again.'} (${res._url})${res.error ? ` — ${res.error}` : ''}`
+        : (res.msg || 'Login failed. Please try again.')
       setMessage(detail)
     }
   }
