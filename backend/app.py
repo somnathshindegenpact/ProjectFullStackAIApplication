@@ -21,12 +21,13 @@ def create_app():
     frontend_origin = os.getenv('FRONTEND_ORIGIN', 'https://somnathshindegenpact.github.io')
     allowed_origins = {
         frontend_origin,
+        'https://somnathshindegenpact.github.io',
         'http://localhost:3000',
         'http://127.0.0.1:3000',
         'http://localhost:5000',
         'http://127.0.0.1:5000',
     }
-    CORS(app, resources={r"/api/*": {"origins": list(allowed_origins)}}, supports_credentials=True)
+    CORS(app, resources={r"/api/*": {"origins": list(allowed_origins)}}, supports_credentials=True, allow_headers=['Authorization', 'Content-Type', 'Accept'], methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'])
 
     # Allow browser-based frontend requests from the configured origins.
     @app.before_request
@@ -34,7 +35,7 @@ def create_app():
         origin = request.headers.get('Origin')
         if request.method == 'OPTIONS' and origin:
             response = jsonify({})
-            response.headers['Access-Control-Allow-Origin'] = origin
+            response.headers['Access-Control-Allow-Origin'] = origin if origin in allowed_origins else frontend_origin
             response.headers['Access-Control-Allow-Credentials'] = 'true'
             response.headers['Access-Control-Allow-Headers'] = 'Authorization,Content-Type,Accept'
             response.headers['Access-Control-Allow-Methods'] = 'GET,POST,PUT,PATCH,DELETE,OPTIONS'
@@ -46,6 +47,9 @@ def create_app():
         origin = request.headers.get('Origin')
         if origin and origin in allowed_origins:
             response.headers['Access-Control-Allow-Origin'] = origin
+            response.headers['Access-Control-Allow-Credentials'] = 'true'
+        elif origin:
+            response.headers['Access-Control-Allow-Origin'] = frontend_origin
             response.headers['Access-Control-Allow-Credentials'] = 'true'
         response.headers.setdefault('Access-Control-Allow-Headers', 'Authorization,Content-Type,Accept')
         response.headers.setdefault('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS')
