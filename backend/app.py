@@ -95,7 +95,10 @@ def create_app():
     return app
 
 
+app = create_app()
+application = app
+
+
 if __name__ == '__main__':
-    app = create_app()
     # Enable debug for local testing to see full tracebacks
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True, use_reloader=False)

@@ -1,8 +1,13 @@
 from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models import Document, DocEmbedding
-from app import db
 import json
+
+try:
+    from .models import Document, DocEmbedding
+    from .app import db
+except ImportError:
+    from models import Document, DocEmbedding
+    from app import db
 
 bp = Blueprint('ai', __name__)
 

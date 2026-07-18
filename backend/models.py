@@ -2,7 +2,10 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db
+try:
+    from .app import db
+except ImportError:
+    from app import db
 
 
 class User(db.Model):
