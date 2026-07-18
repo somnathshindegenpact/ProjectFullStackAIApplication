@@ -18,7 +18,17 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
 
-    # Allow browser-based frontend requests from any origin while keeping the API accessible.
+    frontend_origin = os.getenv('FRONTEND_ORIGIN', 'https://somnathshindegenpact.github.io')
+    allowed_origins = {
+        frontend_origin,
+        'http://localhost:3000',
+        'http://127.0.0.1:3000',
+        'http://localhost:5000',
+        'http://127.0.0.1:5000',
+    }
+    CORS(app, resources={r"/api/*": {"origins": list(allowed_origins)}}, supports_credentials=True)
+
+    # Allow browser-based frontend requests from the configured origins.
     @app.before_request
     def handle_preflight():
         origin = request.headers.get('Origin')
@@ -31,11 +41,10 @@ def create_app():
             response.status_code = 200
             return response
 
-    # Add CORS headers to all responses so browser requests are accepted by the deployed app.
     @app.after_request
     def add_cors_headers(response):
         origin = request.headers.get('Origin')
-        if origin:
+        if origin and origin in allowed_origins:
             response.headers['Access-Control-Allow-Origin'] = origin
             response.headers['Access-Control-Allow-Credentials'] = 'true'
         response.headers.setdefault('Access-Control-Allow-Headers', 'Authorization,Content-Type,Accept')

@@ -19,7 +19,7 @@ function getApiBase() {
     }
   }
 
-  return 'https://task-manager-api-346f.onrender.com'
+  return process.env.REACT_APP_API_URL || 'https://task-manager-api-346f.onrender.com'
 }
 
 // Keep the deployment target explicit for GitHub Pages builds.
