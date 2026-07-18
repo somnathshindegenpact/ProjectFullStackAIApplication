@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ProjectFullStackAIApplication/static/css/main.637c2e74.css",
-    "main.js": "/ProjectFullStackAIApplication/static/js/main.feb6a1e4.js",
+    "main.js": "/ProjectFullStackAIApplication/static/js/main.01cef730.js",
     "index.html": "/ProjectFullStackAIApplication/index.html",
     "main.637c2e74.css.map": "/ProjectFullStackAIApplication/static/css/main.637c2e74.css.map",
-    "main.feb6a1e4.js.map": "/ProjectFullStackAIApplication/static/js/main.feb6a1e4.js.map"
+    "main.01cef730.js.map": "/ProjectFullStackAIApplication/static/js/main.01cef730.js.map"
   },
   "entrypoints": [
     "static/css/main.637c2e74.css",
-    "static/js/main.feb6a1e4.js"
+    "static/js/main.01cef730.js"
   ]
 }
