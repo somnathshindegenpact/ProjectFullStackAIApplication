@@ -7,6 +7,10 @@ BACKEND_DIR = os.path.join(ROOT_DIR, 'backend')
 if BACKEND_DIR not in sys.path:
     sys.path.insert(0, BACKEND_DIR)
 
+# Make sure the backend package can be imported from the repo root.
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
 from app import create_app
 
 application = create_app()
