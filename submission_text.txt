@@ -1,0 +1,34 @@
+Project Title: Task Manager AI App
+
+Video Presentation of Project
+Record a short presentation (up to 10 minutes) that explains the project clearly.
+
+Include:
+- Project title
+- Business or user problem
+- Target user
+- Main app flow
+- Signup, login, or authenticated experience
+- Protected user-owned data
+- Main CRUD workflow
+- AI/RAG feature
+- Source-backed response display
+- Persistent AI-related feature
+- One technical decision you are proud of
+- One limitation or future improvement
+
+Project Links
+- GitHub repository: https://github.com/somnathshindelab6/ProjectAuthenticatedFullStackAIApplication
+- Deployed app: https://somnathshindelab6.github.io/ProjectAuthenticatedFullStackAIApplication/
+- Optional slides: add if available
+- Optional screenshots: add if available
+
+Written Reflection
+Accomplishment:
+This project successfully combines a React frontend, a Flask backend, SQLAlchemy models, JWT authentication, and an AI-powered RAG workflow into a working full-stack application. The app allows users to register, log in, manage tasks, and receive AI-assisted recommendations in a secure environment.
+
+Opportunity for Growth:
+The biggest lesson learned was the importance of planning the architecture carefully and building the application in smaller, testable steps. Breaking the work into authentication, CRUD, and AI integration milestones made development and debugging easier and improved the overall structure of the project.
+
+Continual Improvement:
+If more time were available, the next improvements would focus on refining the UI, improving the quality of the AI knowledge base, strengthening security and authorization, and adding richer task personalization and user feedback features.

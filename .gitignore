@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+node_modules/
+frontend/build/
+backend/dev.db
+.env
+*.env
+dist/
+.pytest_cache/
+/.vscode/

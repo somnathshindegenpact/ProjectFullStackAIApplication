@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - '5000:5000'
+    environment:
+      - DATABASE_URL=sqlite:///dev.db
+      - FLASK_SECRET_KEY=dev-secret
+      - JWT_SECRET_KEY=dev-jwt-secret
+      - OPENAI_API_KEY=
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:80'
+    depends_on:
+      - backend
