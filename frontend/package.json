@@ -1,7 +1,7 @@
 {
   "name": "task-ai-frontend",
   "version": "0.1.0",
-  "homepage": "https://somnathshindelab6.github.io/ProjectAuthenticatedFullStackAIApplication",
+  "homepage": "https://somnathshindegenpact.github.io/ProjectFullStackAIApplication",
   "private": true,
   "dependencies": {
     "autoprefixer": "^10.4.19",
