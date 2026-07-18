@@ -79,37 +79,7 @@ def create_app():
             db.session.execute(db.text('ALTER TABLE users ADD COLUMN reset_token_expires_at DATETIME'))
         db.session.commit()
 
-    # register blueprints
-    try:
-        from auth import (
-            bp as auth_bp,
-            register as auth_register,
-            login as auth_login,
-            forgot_password as auth_forgot_password,
-            reset_password as auth_reset_password,
-            refresh as auth_refresh,
-            me as auth_me,
-        )
-    except Exception:
-        auth_bp = None
-        auth_register = None
-        auth_login = None
-        auth_forgot_password = None
-        auth_reset_password = None
-        auth_refresh = None
-        auth_me = None
-
-    from ai import bp as ai_bp
-    from tasks import bp as tasks_bp
-    from categories import bp as categories_bp
-    from documents import bp as documents_bp
-
-    if auth_bp is not None:
-        app.register_blueprint(auth_bp, url_prefix='/api/auth')
-
     def login_route():
-        if auth_login is not None:
-            return auth_login()
         data = request.get_json() or {}
         email = data.get('email')
         password = data.get('password')
@@ -123,8 +93,6 @@ def create_app():
         return jsonify({'access_token': access, 'refresh_token': refresh, 'user': {'id': user.id, 'email': user.email}})
 
     def register_route():
-        if auth_register is not None:
-            return auth_register()
         data = request.get_json() or {}
         email = data.get('email')
         password = data.get('password')
@@ -141,23 +109,15 @@ def create_app():
         return jsonify({'access_token': access, 'refresh_token': refresh, 'user': {'id': user.id, 'email': user.email}}), 201
 
     def forgot_password_route():
-        if auth_forgot_password is not None:
-            return auth_forgot_password()
         return jsonify({'msg': 'forgot-password endpoint unavailable'}), 501
 
     def reset_password_route():
-        if auth_reset_password is not None:
-            return auth_reset_password()
         return jsonify({'msg': 'reset-password endpoint unavailable'}), 501
 
     def refresh_route():
-        if auth_refresh is not None:
-            return auth_refresh()
         return jsonify({'msg': 'refresh endpoint unavailable'}), 501
 
     def me_route():
-        if auth_me is not None:
-            return auth_me()
         return jsonify({'msg': 'me endpoint unavailable'}), 501
 
     app.add_url_rule('/api/auth/register', view_func=register_route, methods=['POST'])
@@ -166,10 +126,6 @@ def create_app():
     app.add_url_rule('/api/auth/reset-password', view_func=reset_password_route, methods=['POST'])
     app.add_url_rule('/api/auth/refresh', view_func=refresh_route, methods=['POST'])
     app.add_url_rule('/api/auth/me', view_func=me_route, methods=['GET'])
-    app.register_blueprint(ai_bp, url_prefix='/api/ai')
-    app.register_blueprint(tasks_bp, url_prefix='/api/tasks')
-    app.register_blueprint(categories_bp, url_prefix='/api/categories')
-    app.register_blueprint(documents_bp, url_prefix='/api/documents')
 
     @app.route('/api/health')
     def health():
