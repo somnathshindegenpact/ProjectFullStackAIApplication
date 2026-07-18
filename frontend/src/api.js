@@ -12,13 +12,6 @@ function getApiBase() {
     return configured.replace(/\/$/, '')
   }
 
-  if (typeof window !== 'undefined') {
-    const host = window.location.hostname
-    if (host === 'localhost' || host === '127.0.0.1' || host === '::1') {
-      return 'http://localhost:5000'
-    }
-  }
-
   return 'https://task-manager-api-346f.onrender.com'
 }
 
@@ -50,7 +43,9 @@ async function request(path, options = {}) {
     }
   }
 
-  const targetUrl = `${API_BASE}${path}`
+  const normalizedBase = API_BASE.replace(/\/$/, '')
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  const targetUrl = `${normalizedBase}${normalizedPath}`
 
   try {
     const res = await fetch(targetUrl, finalOptions)
